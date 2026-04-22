@@ -1,11 +1,39 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
+
 @source '../**/*.blade.php';
+@source '../**/**/*.blade.php';
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+
+    --color-page:#000000;
+    --color-card:#080808;
+    --color-input:#111010;
+    /* text */
+    --color-cream:#f5f0e8;
+    --color-oat:#a89880;
+    --color-cocoa:#7a7065;
+    --color-dust:#3d3830;
+    /* borders */
+    --color-rim:#2a2520;
+    /* accents */
+    --color-gold:#d4a373;
+    --color-gold-dim:#8b7355;
+    --color-navy:#1a2744;
+    --color-plum:#4a1942;
+    --color-sage:#3d5a47;
+    --color-forest:#023020;
+
+    --color-error:#95122c
+}
+
+.box-shadow {
+    @apply shadow-[5px_5px_rgba(212,163,115,_0.4),_10px_10px_rgba(212,163,115,_0.3),_15px_15px_rgba(212,163,115,_0.2),_20px_20px_rgba(212,163,115,_0.1),_25px_25px_rgba(212,163,115,_0.05)];
 }
