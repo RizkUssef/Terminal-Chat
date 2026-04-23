@@ -11,7 +11,7 @@ class RecvBubbleMessage extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $message, public string $time)
+    public function __construct(public string $message, public string $time, public bool $isRead)
     {
         //
     }

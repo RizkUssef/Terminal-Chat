@@ -6,13 +6,17 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class SentBubbleMessage extends Component
+class MessageInput extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $message, public string $time, public bool $isRead)
-    {
+    public function __construct(
+        public string $userName,
+        public string $name,
+        public string $type = 'text',
+        public string $placeholder = '',
+    ) {
         //
     }
 
@@ -21,6 +25,6 @@ class SentBubbleMessage extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.sent-bubble-message');
+        return view('components.message-input');
     }
 }

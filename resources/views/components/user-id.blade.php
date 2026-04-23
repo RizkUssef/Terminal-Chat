@@ -10,8 +10,14 @@
                 <p class="text-xs text-dust">#{{ $userId }}</p>
             </div>
         </div>
-        <div>
+        <div class="flex items-center justify-center gap-3">
             <p class="text-xs {{ $userStatus === 'online' ? 'text-sage' : 'text-error' }}">{{ $userStatus }}</p>
+            <a href="#">
+                <x-settings-icon />
+            </a>
+            <a href="#">
+                <x-profile-icon />
+            </a>
         </div>
     </div>
 </div>
