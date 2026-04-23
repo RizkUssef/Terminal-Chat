@@ -1,5 +1,5 @@
 <div class="mt-4">
-    <label for="{{ $name }}" class="font-bold block text-oat text-sm font-medium">{{ $label }}</label>
+    <label for="{{ $name }}" class="block text-oat text-sm font-medium">{{ $label }}</label>
     <div class="relative">
         <span class="absolute inset-y-0 left-0 flex items-center pl-1 text-dust ">
             <x-terminal-icon />
