@@ -13,25 +13,37 @@
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
 
-    --color-page:#000000;
-    --color-card:#080808;
-    --color-input:#111010;
+    --color-page: #000000;
+    --color-card: #080808;
+    --color-input: #111010;
     /* text */
-    --color-cream:#f5f0e8;
-    --color-oat:#a89880;
-    --color-cocoa:#7a7065;
-    --color-dust:#3d3830;
+    --color-cream: #f5f0e8;
+    --color-oat: #a89880;
+    --color-cocoa: #7a7065;
+    --color-dust: #3d3830;
     /* borders */
-    --color-rim:#2a2520;
+    --color-rim: #2a2520;
     /* accents */
-    --color-gold:#d4a373;
-    --color-gold-dim:#8b7355;
-    --color-navy:#1a2744;
-    --color-plum:#4a1942;
-    --color-sage:#3d5a47;
-    --color-forest:#023020;
+    --color-gold: #d4a373;
+    --color-gold-dim: #8b7355;
+    --color-navy: #1a2744;
+    --color-plum: #4a1942;
+    --color-sage: #3d5a47;
+    --color-forest: #023020;
+    --color-error: #95122c;
+    /* chat */
+    --color-sent-bubble: #1a1005;
+    --color-sent-text: #d4a373;
+    --color-sent-border: #3d2a10;
+    --color-recv-bubble: #111111;
+    --color-recv-text: #a89880;
+    --color-recv-border: #1a1a1a;
+    --color-timestamp: #3d3830;
+    --color-chat-bg: #0a0a0a;
+}
 
-    --color-error:#95122c
+*::-webkit-scrollbar {
+  display: none;
 }
 
 .box-shadow {

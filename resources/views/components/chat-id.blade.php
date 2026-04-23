@@ -1,4 +1,4 @@
-<div class="border-b-1 border-dust py-2 border-dashed w-[40%]">
+<div class="border-b-1 border-dust py-2 px-6 border-dashed w-full">
     <div class="flex items-center justify-between gap-2">
         <div class="flex gap-3 items-center">
             <div
