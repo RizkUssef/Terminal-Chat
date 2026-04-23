@@ -13,7 +13,7 @@
             <x-input label="Email" type="email" name="email" />
             <x-input label="Password" type="password" name="password" />
             <x-input label="Password Confirmation" type="password" name="password_confirmation" />
-            <a class="text-gold self-end mt-3">Login?</a>
+            <a href="{{ route('login') }}" class="text-gold self-end mt-3">Login?</a>
             <x-button>Submit</x-button>
         </form>
     </div>

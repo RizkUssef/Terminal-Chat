@@ -25,5 +25,5 @@
             </table>
         </div>
     </div>
-    <x-link :url="route('home')">Add New Friend</x-link>
+    <x-link :url="route('add-new-friend')">Add New Friend</x-link>
 @endsection

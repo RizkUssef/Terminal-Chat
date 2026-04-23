@@ -11,7 +11,7 @@
             @csrf
             <x-input label="Email" type="email" name="email" />
             <x-input label="Password" type="password" name="password" />
-            <a class="text-gold self-end mt-3">Forget Password?</a>
+            <a href="{{ route('password.request') }}" class="text-gold self-end mt-3">Forget Password?</a>
             <x-button>Submit</x-button>
         </form>
     </div>
