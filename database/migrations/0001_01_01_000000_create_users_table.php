@@ -47,31 +47,3 @@ return new class extends Migration
         Schema::dropIfExists('sessions');
     }
 };
-
-
-// 🧠 Simple Database Design (Important)
-
-// You don’t need anything complex. Start like this:
-
-// 1. Users Table
-// users
-// - id
-// - name
-// - email
-// - password
-// 2. Conversations Table
-// conversations
-// - id
-// - created_at
-// 3. Conversation Participants
-// conversation_user
-// - id
-// - conversation_id
-// - user_id
-// 4. Messages Table
-// messages
-// - id
-// - conversation_id
-// - sender_id
-// - message
-// - created_at

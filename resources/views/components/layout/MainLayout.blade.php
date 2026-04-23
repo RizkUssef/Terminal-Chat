@@ -10,9 +10,14 @@
 </head>
 
 <body>
-    <div class="flex flex-col justify-start items-center h-screen bg-black pt-10 gap-10">
-        {{-- <x-user-id :user_name="auth()->user()->user_name" :user_status="auth()->user()->status" :user_id="auth()->user()->id"/> --}}
-        <x-user-id user_name="ui pom" user_status="online" user_id="1545" />
+    <div class="relative flex flex-col justify-start items-center h-screen bg-black pt-10 gap-10">
+            @if (url()->previous() !== url()->current() && url()->previous() !== '')
+                <a href="{{ url()->previous() }}"
+                    class="absolute left-70 top-15 flex items-center text-dust hover:text-gold transition-colors font-mono text-sm ">
+                    <x-terminal-icon /> cd ..
+                </a>
+            @endif
+            <x-user-id user_name="ui pom" user_status="online" user_id="1545" />
         @yield('content')
     </div>
 </body>
