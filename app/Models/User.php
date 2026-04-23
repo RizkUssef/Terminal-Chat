@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use App\Casts\DateTimeSplitCast;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable(['name', 'email', 'password', 'user_name', 'user_key'])]
 #[Hidden(['password', 'remember_token'])]
@@ -38,5 +39,15 @@ class User extends Authenticatable
             'email_verified_at' => DateTimeSplitCast::class,
             'password' => 'hashed',
         ];
+    }
+
+    public function conversationUser(): HasMany
+    {
+        return $this->hasMany(ConversationUser::class);
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
     }
 }
