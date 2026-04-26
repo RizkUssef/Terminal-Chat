@@ -2,8 +2,10 @@
     <div class="flex items-center justify-between gap-2">
         <div class="flex gap-3 items-center">
             <div
-                class="w-10 h-10 rounded-full bg-dust flex items-center justify-center capitalize text-sm text-[#0a0806] font-bold">
-                {{ $userName[0] }}
+                class="relative w-[42px] h-[42px] flex items-center justify-center rounded-md bg-[#0d0d0d] border border-sent-border shrink-0 capitalize">
+                <span class="absolute left-[3px] text-xl font-bold text-dust leading-none">[</span>
+                <span class="text-sm font-bold text-gold-dim z-10">{{ $userName[0] }}</span>
+                <span class="absolute right-[3px] text-xl font-bold text-dust leading-none">]</span>
             </div>
             <div>
                 <p class="text-sm text-gold">{{ $userName }}</p>

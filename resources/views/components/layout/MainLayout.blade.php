@@ -10,13 +10,7 @@
 </head>
 
 <body>
-    <div class="relative flex flex-col justify-start items-center h-screen bg-black pt-10 gap-10">
-            @if (url()->previous() !== url()->current() && url()->previous() !== '')
-                <a href="{{ url()->previous() }}"
-                    class="absolute left-70 top-15 flex items-center text-dust hover:text-gold transition-colors font-mono text-sm ">
-                    <x-terminal-icon /> cd ..
-                </a>
-            @endif
+    <div class="relative flex flex-col justify-start items-center h-screen bg-black gap-10">
             @php
              $user = auth()->user();
             @endphp
