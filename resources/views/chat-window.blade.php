@@ -3,9 +3,9 @@
 @section('title', 'Chat')
 
 @section('content')
-    <div class="w-[40%] box-shadow h-[70vh] pb-6 bg-chat-bg">
+    <div class="w-[40%] box-shadow h-[80vh] pb-6 bg-chat-bg">
         <x-chat-id :userId="$conversation_partner->user_key" :userName="$conversation_partner->user_name" :userStatus="$conversation_partner->status" />
-        <div class="p-5 flex flex-col gap-2 h-[52vh] overflow-scroll">
+        <div class="p-5 flex flex-col gap-2 h-[62vh] overflow-scroll">
             @foreach ($conversation->messages as $message)
                 @if ($message->sender_id == auth()->id())
                     @php
