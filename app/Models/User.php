@@ -41,13 +41,32 @@ class User extends Authenticatable
         ];
     }
 
-    public function conversationUser(): HasMany
+    public function createConversation(): HasMany
     {
-        return $this->hasMany(ConversationUser::class);
+        return $this->hasMany(Conversation::class, 'creator_id');
+    }
+
+    public function conversations()
+    {
+        return $this->belongsToMany(Conversation::class, "conversation_users")->using(ConversationUser::class)->withTimestamps();
+    }
+
+    public function conversationUsers(): HasMany
+    {
+        return $this->hasMany(ConversationUser::class, 'user_id');
     }
 
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function getConversationsWithPartners()
+    {
+        return $this->conversations()
+            ->with(['users' => function ($q) {
+                $q->where('conversation_users.user_id', '!=', $this->id);
+            }])
+            ->get();
     }
 }

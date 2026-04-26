@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use App\Casts\DateTimeSplitCast;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable(['conversation_id', 'user_id'])]
-class ConversationUser extends Model
+class ConversationUser extends Pivot
 {
+    protected $table = "conversation_users";
     protected function casts(): array
     {
         return [
@@ -18,13 +19,13 @@ class ConversationUser extends Model
         ];
     }
 
-    public function user(): BelongsTo
+    public function users(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function conversation(): BelongsTo
+    public function conversations(): BelongsTo
     {
-        return $this->belongsTo(Conversation::class);
+        return $this->belongsTo(Conversation::class, 'conversation_id');
     }
 }
