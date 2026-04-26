@@ -34,8 +34,8 @@ class ConversationService
     public function addNewFriend($user_field)
     {
         $creator = auth()->user();
-        $user = User::where($user_field)->first();
-
+        $user = User::where($user_field)->first()
+            ?? throw new \InvalidArgumentException("User does not exist.", 409);
         $this->ensureNotSelf(creator_id: $creator->id, user_id: $user->id);
         $this->ensureNotExists(creator_id: $creator->id, user_id: $user->id);
 
