@@ -3,7 +3,7 @@
     <p>{{ $message }}</p>
     <div class="self-end flex items-center gap-1">
         <p class="text-xs text-timestamp">{{ $time }}</p>
-        @if ($isRead === true)
+        @if ($isRead)
             <x-read-icon />
         @else
             <x-unread-icon />

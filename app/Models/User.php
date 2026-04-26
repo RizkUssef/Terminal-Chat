@@ -69,4 +69,12 @@ class User extends Authenticatable
             }])
             ->get();
     }
+    // public function getOneConversationsWithPartners($conversation_key)
+    // {
+    //     return $this->conversations()
+    //         ->with(['users' => function ($q) {
+    //             $q->where('conversation_users.user_id', '!=', $this->id);
+    //         }])
+    //         ->get();
+    // }
 }

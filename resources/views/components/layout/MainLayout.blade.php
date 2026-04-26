@@ -17,7 +17,10 @@
                     <x-terminal-icon /> cd ..
                 </a>
             @endif
-            <x-user-id user_name="ui pom" user_status="online" user_id="1545" />
+            @php
+             $user = auth()->user();
+            @endphp
+            <x-user-id :user_name="$user->user_name" :user_status="$user->status" :user_id="$user->user_key" />
         @yield('content')
     </div>
 </body>

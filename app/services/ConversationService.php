@@ -54,4 +54,12 @@ class ConversationService
         $conversations_members = auth()->user()->getConversationsWithPartners();
         return $conversations_members;
     }
+
+    public function getOneUserConversations($conversation)
+    {
+        // ->load() is lazy eager loading — it works on an already-resolved model instance. Same result as eager loading, just done after the binding.
+        $conversation->load(['users', 'messages']); // eager load after binding
+        $conversation_partner = $conversation->users()->where('user_id', '!=', auth()->id())->first();
+        return $conversation_partner;
+    }
 }

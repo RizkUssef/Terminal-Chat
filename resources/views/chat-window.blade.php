@@ -4,14 +4,21 @@
 
 @section('content')
     <div class="w-[40%] box-shadow h-[70vh] pb-6 bg-chat-bg">
-        <x-chat-id userId="888" userName="kol" userStatus="offline" />
+        <x-chat-id :userId="$conversation_partner->user_key" :userName="$conversation_partner->user_name" :userStatus="$conversation_partner->status" />
         <div class="p-5 flex flex-col gap-2 h-[52vh] overflow-scroll">
-            <x-recv-bubble-message message="Lorem ipsum dolor sit amet consectetur adipisicing." time="10.52" :isRead="true" />
-            <x-recv-bubble-message message="Lorem ipsum dolor" time="10.52" :isRead="false" />
-            <x-sent-bubble-message message="Lorem ipsum dolor" time="10.52" :isRead="true" />
-            <x-recv-bubble-message message="Lorem ipsum dolor" time="10.52" :isRead="false" />
-            <x-sent-bubble-message message="Lorem ipsum dolor" time="10.52" :isRead="true" />
-            <x-recv-bubble-message message="Lorem ipsum dolor sit amet consectetur adipisicing." time="10.52" :isRead="true" />
+            @foreach ($conversation->messages as $message)
+                @if ($message->sender_id == auth()->id())
+                    @php
+                        $time = $message->created_at['time'];
+                    @endphp
+                    <x-sent-bubble-message :message="$message->message" :time="$time" :isRead="$message->status" />
+                @else
+                    @php
+                        $time = $message->created_at['time'];
+                    @endphp
+                    <x-recv-bubble-message :message="$message->message" :time="$time" :isRead="$message->status" />
+                @endif
+            @endforeach
         </div>
         <form action="" class="">
             @csrf

@@ -36,4 +36,10 @@ class ConversationController extends Controller
         $conversations_members = $this->conversationService->getAllUserConversations();
         return view('ChatList', compact('conversations_members'));
     }
+
+    public function showConversation(Conversation $conversation)
+    {
+        $conversation_partner = $this->conversationService->getOneUserConversations($conversation);
+        return view('chat-window', compact('conversation_partner', 'conversation'));
+    }
 }

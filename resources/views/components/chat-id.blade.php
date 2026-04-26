@@ -7,11 +7,13 @@
             </div>
             <div>
                 <p class="text-sm text-gold">{{ $userName }}</p>
-                <p class="text-xs text-dust">#{{ $userId }}</p>
+                <p class="text-xs text-dust">#{{ substr($userId, 0, 8) }}</p>
             </div>
         </div>
         <div>
-            <p class="text-xs {{ $userStatus === 'online' ? 'text-sage' : 'text-error' }}">{{ $userStatus }}</p>
+            <p class="text-xs {{ $userStatus ? 'text-sage' : 'text-error' }}">
+                {{ $userStatus ? 'Online' : 'Offline' }}
+            </p>
         </div>
     </div>
 </div>
