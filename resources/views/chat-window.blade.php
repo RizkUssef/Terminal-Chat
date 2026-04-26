@@ -20,7 +20,7 @@
                 @endif
             @endforeach
         </div>
-        <form action="" class="">
+        <form action="{{ route('send-message', ['conversation' => $conversation->conversation_key]) }}" class="" method="POST">
             @csrf
             <div class="flex justify-between items-baseline px-5">
                 <x-message-input userName="pop" type="text" name="message" placeholder="Message ..." />

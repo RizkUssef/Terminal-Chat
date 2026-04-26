@@ -7,6 +7,7 @@ use App\Http\Controllers\AddNewFriendController;
 use App\Http\Controllers\ChatWindowController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\MessageController;
 
 
 Route::get('/', function () {
@@ -23,3 +24,5 @@ Route::get('/add-new-friend', [ConversationController::class, 'addNewFriendView'
 Route::post('/add-new-friend', [ConversationController::class, 'create'])->name("create-conv");
 Route::get('/user-conversations', [ConversationController::class, 'showUserConversations'])->name("user-convs");
 Route::get('/conversation/{conversation:conversation_key}', [ConversationController::class, 'showConversation'])->name("conv");
+// messages
+Route::post('/send-message/{conversation:conversation_key}', [MessageController::class, 'sendMessage'])->name("send-message");
