@@ -7,7 +7,7 @@
         <x-chat-id :userId="$conversation_partner->user_key" :userName="$conversation_partner->user_name" :userStatus="$conversation_partner->status" />
         <div id="messages-list" class="p-5 flex flex-col gap-2 h-[62vh] overflow-scroll">
             {{-- this is where the messages will be inserted and rendered --}}
-            @foreach ($messages->reverse()  as $message)
+            @foreach ($messages->reverse() as $message)
                 @if ($message->sender_id == auth()->id())
                     @php
                         $time = $message->created_at['time'];
@@ -41,65 +41,71 @@
 
 @section('scripts')
     <script>
-        // 1. On page load — scroll to bottom immediately
+        // error that (the recive message not appear automatically) window.Echo is undefined at the time your script runs — the echo.js loads after your inline script.
+        // Fix — wrap your Echo code in a DOMContentLoaded listener in your blade view:
         document.addEventListener('DOMContentLoaded', function() {
+            // 1. On page load — scroll to bottom immediately
             scrollToBottom();
+
+            // ── SEND ──
+            // ── SEND: intercept form submit, send via fetch ──
+            document.getElementById('message-form').addEventListener('submit', async function(e) {
+                e.preventDefault(); // stop page reload
+                const input = document.getElementById('message');
+                const body = input.value.trim();
+                if (!body) return;
+
+                // show sender's own message immediately (no waiting for server)
+                const nowTime = new Date().toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                });
+                appendMessage(body, true, nowTime);
+                input.value = ''; // clear input
+
+                // send to server silently
+                await fetch(
+                    '{{ route('send-message', ['conversation' => $conversation->conversation_key]) }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        body: JSON.stringify({
+                            message: body
+                        }),
+                    });
+            });
+            window.Echo.private('conversation.{{ $conversation->id }}')
+                .listen('MessageSent', (e) => console.log('🟢 message received:', e));
+
+            // ── LISTEN ──
+            // ── RECEIVE: listen for other user's messages via Reverb ──
+            window.Echo.private('conversation.{{ $conversation->id }}')
+                .listen('.message.sent', (e) => {
+                    // this fires automatically when the other user sends a message
+                    if (e.sender_id !== {{ auth()->id() }}) {
+                        appendMessage(e.body, false, e.time);
+                    }
+                });
+
+            // ── APPEND ──
+            // ── APPEND: build bubble HTML and add to chat window ──
+            function appendMessage(body, isSent, time) {
+                const tpl = document.getElementById(isSent ? 'tpl-sent' : 'tpl-recv');
+                let html = tpl.innerHTML
+                    .replace('__BODY__', body)
+                    .replace('__TIME__', time);
+
+                document.getElementById('messages-list').insertAdjacentHTML('beforeend', html);
+                document.getElementById('messages-list').scrollTop = 99999;
+            }
+            // ── SCROLL ──
+            function scrollToBottom() {
+                const container = document.getElementById('messages-list');
+                container.scrollTop = container.scrollHeight;
+            }
         });
-        // ── SEND ──
-        // ── SEND: intercept form submit, send via fetch ──
-        document.getElementById('message-form').addEventListener('submit', async function(e) {
-            e.preventDefault(); // stop page reload
-            const input = document.getElementById('message');
-            const body = input.value.trim();
-            if (!body) return;
-
-            // show sender's own message immediately (no waiting for server)
-            const nowTime = new Date().toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true
-            });
-            appendMessage(body, true, nowTime);
-            input.value = ''; // clear input
-
-            // send to server silently
-            await fetch('{{ route('send-message', ['conversation' => $conversation->conversation_key]) }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-                body: JSON.stringify({
-                    message: body
-                }),
-            });
-        });
-
-        // ── LISTEN ──
-        // ── RECEIVE: listen for other user's messages via Reverb ──
-        window.Echo.private('conversation.{{ $conversation->id }}')
-            .listen('.message.sent', (e) => {
-                // this fires automatically when the other user sends a message
-                if (e.sender_id !== {{ auth()->id() }}) {
-                    appendMessage(e.body, false, e.time);
-                }
-            });
-
-        // ── APPEND ──
-        // ── APPEND: build bubble HTML and add to chat window ──
-        function appendMessage(body, isSent, time) {
-            const tpl = document.getElementById(isSent ? 'tpl-sent' : 'tpl-recv');
-            let html = tpl.innerHTML
-                .replace('__BODY__', body)
-                .replace('__TIME__', time);
-
-            document.getElementById('messages-list').insertAdjacentHTML('beforeend', html);
-            document.getElementById('messages-list').scrollTop = 99999;
-        }
-        // ── SCROLL ──
-        function scrollToBottom() {
-            const container = document.getElementById('messages-list');
-            container.scrollTop = container.scrollHeight;
-        }
     </script>
 @endsection
