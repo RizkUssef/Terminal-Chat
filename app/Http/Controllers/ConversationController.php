@@ -40,6 +40,7 @@ class ConversationController extends Controller
     public function showConversation(Conversation $conversation)
     {
         $conversation_partner = $this->conversationService->getOneUserConversations($conversation);
-        return view('chat-window', compact('conversation_partner', 'conversation'));
+        $messages = $conversation->messages()->latest()->paginate(10);
+        return view('chat-window', compact('conversation_partner', 'conversation', 'messages'));
     }
 }

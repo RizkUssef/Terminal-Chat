@@ -1,6 +1,11 @@
 <div class="border-b-1 border-dust p-2 border-dashed w-full">
     <div class="flex items-center justify-between w-full gap-2">
-        <div>
+        <div class="flex gap-3">
+            <a href="{{ route('home') }}"
+                class="flex items-center text-dust hover:text-gold transition-colors font-mono text-sm ">
+                <x-terminal-icon /> cd ~ home
+            </a>
+            <span class="text-rim">|</span>
             @if (url()->previous() !== url()->current() && url()->previous() !== '')
                 <a href="{{ url()->previous() }}"
                     class="flex items-center text-dust hover:text-gold transition-colors font-mono text-sm ">

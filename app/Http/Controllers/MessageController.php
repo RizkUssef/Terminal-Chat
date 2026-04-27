@@ -13,7 +13,7 @@ class MessageController extends Controller
 
     public function sendMessage(MessageRequest $request, Conversation $conversation)
     {
-        $this->messageService->sendMessage($conversation, $request->message);
-        return back();
+        $message = $this->messageService->sendMessage($conversation, $request->message);
+        return response()->json($message);
     }
 }
