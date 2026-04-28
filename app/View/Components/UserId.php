@@ -11,7 +11,7 @@ class UserId extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $userName, public string $userStatus, public string $userId) {}
+    public function __construct(public string $userName, public string $userStatus, public string $userId, public $lastSeenAt) {}
 
     /**
      * Get the view / contents that represent the component.

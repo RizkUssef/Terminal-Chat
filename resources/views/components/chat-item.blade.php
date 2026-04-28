@@ -4,8 +4,14 @@
     class="text-gold-dim hover:bg-gold transition-all duration-400 cursor-pointer hover:text-black">
     <td>{{ $userName }}</td>
     <td>#{{ substr($userId, 0, 8) }}</td>
-    <td class="{{ $userStatus ? 'text-sage' : 'text-error' }}">
-        {{ $userStatus ? 'Online' : 'Offline' }}
+    <td class="flex items-center gap-2 {{ $userStatus ? 'text-online' : 'text-offline' }}">
+        @if ($userStatus)
+            <x-online-icon />
+            <span>Online</span>
+        @else
+            <x-offline-icon />
+            <span>Offline</span>
+        @endif
     </td>
 </tr>
 {{-- </a> --}}

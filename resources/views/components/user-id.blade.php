@@ -29,7 +29,15 @@
             </div>
         </div>
         <div class="flex items-center justify-center gap-3">
-            <p class="text-xs {{ $userStatus ? 'text-sage' : 'text-error' }}">{{ $userStatus ? 'Online' : 'Offline' }}
+            <p
+                class="py-1 px-2 rounded-2xl flex items-center gap-2 text-xs {{ $userStatus ? 'text-online bg-online-dim border border-online-border' : 'text-offline bg-offline-dim border border-offline-border' }}">
+                @if ($userStatus)
+                    <x-online-icon />
+                    <span>Online</span>
+                @else
+                    <x-offline-icon />
+                    <span>Offline</span>
+                @endif
             </p>
             <a href="#">
                 <x-settings-icon />

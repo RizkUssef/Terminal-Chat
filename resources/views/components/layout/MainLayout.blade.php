@@ -14,7 +14,7 @@
         @php
             $user = auth()->user();
         @endphp
-        <x-user-id :user_name="$user->user_name" :user_status="$user->status" :user_id="$user->user_key" />
+        <x-user-id :user_name="$user->user_name" :user_status="$user->isOnline()" :user_id="$user->user_key" :lastSeenAt="$user->last_seen_at"/>
         @yield('content')
     </div>
     @yield('scripts')

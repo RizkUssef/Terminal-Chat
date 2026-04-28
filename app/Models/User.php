@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 use App\Casts\DateTimeSplitCast;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['name', 'email', 'password', 'user_name', 'user_key'])]
+#[Fillable(['name', 'email', 'password', 'user_name', 'user_key', 'last_seen_at'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -37,6 +37,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => DateTimeSplitCast::class,
+            'last_seen_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
@@ -59,6 +60,11 @@ class User extends Authenticatable
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function isOnline(): bool
+    {
+        return $this->last_seen_at > now()->subMinutes(2);
     }
 
     public function getConversationsWithPartners()

@@ -11,7 +11,7 @@ class ChatId extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $userName, public string $userStatus, public string $userId)
+    public function __construct(public string $userName, public string $userStatus, public string $userId ,public $lastSeenAt)
     {
         //
     }

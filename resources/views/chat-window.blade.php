@@ -3,22 +3,42 @@
 @section('title', 'Chat')
 
 @section('content')
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
     <div class="w-[80%] md:w-[40%] box-shadow h-[80vh] pb-6 bg-chat-bg">
-        <x-chat-id :userId="$conversation_partner->user_key" :userName="$conversation_partner->user_name" :userStatus="$conversation_partner->status" />
+        <x-chat-id :userId="$conversation_partner->user_key" :userName="$conversation_partner->user_name" :userStatus="$conversation_partner->isOnline()" :lastSeenAt="$conversation_partner->last_seen_at" />
         <div id="messages-list" class="p-5 flex flex-col gap-2 h-[62vh] overflow-scroll">
             {{-- this is where the messages will be inserted and rendered --}}
-            @foreach ($messages->reverse() as $message)
-                @if ($message->sender_id == auth()->id())
-                    @php
-                        $time = $message->created_at['time'];
-                    @endphp
-                    <x-sent-bubble-message :message="$message->message" :time="$time" :isRead="$message->status" />
-                @else
-                    @php
-                        $time = $message->created_at['time'];
-                    @endphp
-                    <x-recv-bubble-message :message="$message->message" :time="$time" :isRead="$message->status" />
-                @endif
+            @foreach ($messages->reverse() as $date => $group)
+                {{-- Date separator badge --}}
+                <div class="date-separator">
+                    <span class="date-badge">
+                        @php
+                            $day = \Carbon\Carbon::parse($date);
+                        @endphp
+
+                        @if ($day->isToday())
+                            Today
+
+                        @elseif ($day->isYesterday())
+                            Yesterday
+                        @else
+                            {{ $day->format('l, M j') }} {{-- e.g. "Monday, Apr 21" --}}
+                        @endif
+                    </span>
+                </div>
+                @foreach ($group as $message)
+                    @if ($message->sender_id == auth()->id())
+                        @php
+                            $time = $message->created_at['time'];
+                        @endphp
+                        <x-sent-bubble-message :message="$message->message" :time="$time" :isRead="$message->status" />
+                    @else
+                        @php
+                            $time = $message->created_at['time'];
+                        @endphp
+                        <x-recv-bubble-message :message="$message->message" :time="$time" :isRead="$message->status" />
+                    @endif
+                @endforeach
             @endforeach
             {{-- hidden templates, Blade renders them once --}}
             <template id="tpl-sent">
@@ -28,6 +48,9 @@
                 <x-recv-bubble-message message="__BODY__" time="__TIME__" :isRead="false" />
             </template>
         </div>
+        {{-- Hidden audio element for notifications --}}
+        <audio id="notification-sound" src="{{ url('storage/sounds/notify1.mp3') }}" preload="auto"></audio>
+
         {{-- <form action="{{ route('send-message', ['conversation' => $conversation->conversation_key]) }}" class="" method="POST"> --}}
         <form id="message-form" class="">
             @csrf
@@ -44,6 +67,12 @@
         // error that (the recive message not appear automatically) window.Echo is undefined at the time your script runs — the echo.js loads after your inline script.
         // Fix — wrap your Echo code in a DOMContentLoaded listener in your blade view:
         document.addEventListener('DOMContentLoaded', function() {
+            // Request Notification Permission
+            if ("Notification" in window && Notification.permission !== "granted" && Notification.permission !==
+                "denied") {
+                Notification.requestPermission();
+            }
+
             // 1. On page load — scroll to bottom immediately
             scrollToBottom();
 
@@ -77,9 +106,6 @@
                         }),
                     });
             });
-            window.Echo.private('conversation.{{ $conversation->id }}')
-                .listen('MessageSent', (e) => console.log('🟢 message received:', e));
-
             // ── LISTEN ──
             // ── RECEIVE: listen for other user's messages via Reverb ──
             window.Echo.private('conversation.{{ $conversation->id }}')
@@ -87,6 +113,7 @@
                     // this fires automatically when the other user sends a message
                     if (e.sender_id !== {{ auth()->id() }}) {
                         appendMessage(e.body, false, e.time);
+                        triggerNotifications(e.body);
                     }
                 });
 
@@ -101,6 +128,48 @@
                 document.getElementById('messages-list').insertAdjacentHTML('beforeend', html);
                 document.getElementById('messages-list').scrollTop = 99999;
             }
+            // ── NOTIFICATIONS (SOUND & TOAST) ──
+            function triggerNotifications(messageBody) {
+                // Trigger ONLY if the user is not currently focused on the page
+                if (document.hidden || !document.hasFocus()) {
+                    // 1. Play Sound
+                    const sound = document.getElementById('notification-sound');
+                    if (sound) {
+                        sound.play().catch(error => {
+                            console.log(
+                                'Audio autoplay prevented by browser. User must interact with the page first.',
+                                error);
+                        });
+                    }
+
+                    // 2. System Notification (Browser Toast)
+                    if ("Notification" in window && Notification.permission === "granted") {
+                        const notif = new Notification("New Message", {
+                            body: messageBody
+                        });
+                        notif.onclick = () => {
+                            window.focus();
+                            notif.close();
+                        };
+                    }
+
+                    // 3. In-App Toast
+                    const container = document.getElementById('toast-container');
+                    if (container) {
+                        const toast = document.createElement('div');
+                        toast.className =
+                            'bg-[#1E1E1E] border border-gray-600 text-white px-4 py-3 rounded-lg shadow-2xl transition-opacity duration-300';
+                        toast.innerText = messageBody;
+                        container.appendChild(toast);
+
+                        setTimeout(() => {
+                            toast.classList.add('opacity-0');
+                            setTimeout(() => toast.remove(), 300);
+                        }, 4000);
+                    }
+                }
+            }
+
             // ── SCROLL ──
             function scrollToBottom() {
                 const container = document.getElementById('messages-list');
