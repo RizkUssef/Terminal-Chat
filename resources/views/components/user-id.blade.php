@@ -45,6 +45,12 @@
             <a href="#">
                 <x-profile-icon />
             </a>
+            <form class="my-auto h-7" action="{{ route('logout') }}" method="post">
+                @csrf
+                <button type="submit" class="cursor-pointer">
+                    <x-logout-icon />
+                </button>
+            </form>
         </div>
     </div>
 </div>

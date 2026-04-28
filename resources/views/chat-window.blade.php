@@ -8,39 +8,44 @@
         <x-chat-id :userId="$conversation_partner->user_key" :userName="$conversation_partner->user_name" :userStatus="$conversation_partner->isOnline()" :lastSeenAt="$conversation_partner->last_seen_at" />
         <div id="messages-list" class="p-5 flex flex-col gap-2 h-[62vh] overflow-scroll">
             {{-- this is where the messages will be inserted and rendered --}}
-            @foreach ($messages as $date => $group)
-                {{-- Date separator badge --}}
-                <div class="date-separator">
-                    <span class="date-badge">
-                        @php
-                            $day = \Carbon\Carbon::parse($date);
-                        @endphp
+            @if (!$messages->isEmpty())
+                @foreach ($messages as $date => $group)
+                    {{-- Date separator badge --}}
+                    <div class="date-separator">
+                        <span class="date-badge">
+                            @php
+                                $day = \Carbon\Carbon::parse($date);
+                            @endphp
 
-                        @if ($day->isToday())
-                            Today
-                        @elseif ($day->isYesterday())
-                            Yesterday
+                            @if ($day->isToday())
+                                Today
+                            @elseif ($day->isYesterday())
+                                Yesterday
+                            @else
+                                {{ $day->format('l, M j') }} {{-- e.g. "Monday, Apr 21" --}}
+                            @endif
+                        </span>
+                    </div>
+                    @foreach ($group->reverse() as $message)
+                        @if ($message->sender_id == auth()->id())
+                            @php
+                                $time = $message->created_at['time'];
+                                $is_read = $message->read_at ? true : false;
+                            @endphp
+                            <x-sent-bubble-message :message="$message->message" :time="$time" :isRead="$is_read" />
                         @else
-                            {{ $day->format('l, M j') }} {{-- e.g. "Monday, Apr 21" --}}
+                            @php
+                                $time = $message->created_at['time'];
+                                $is_read = $message->read_at ? true : false;
+                            @endphp
+                            <x-recv-bubble-message :message="$message->message" :time="$time" :isRead="$is_read" />
                         @endif
-                    </span>
-                </div>
-                @foreach ($group->reverse() as $message)
-                    @if ($message->sender_id == auth()->id())
-                        @php
-                            $time = $message->created_at['time'];
-                            $is_read = $message->read_at ? true : false;
-                        @endphp
-                        <x-sent-bubble-message :message="$message->message" :time="$time" :isRead="$is_read" />
-                    @else
-                        @php
-                            $time = $message->created_at['time'];
-                            $is_read = $message->read_at ? true : false;
-                        @endphp
-                        <x-recv-bubble-message :message="$message->message" :time="$time" :isRead="$is_read" />
-                    @endif
+                    @endforeach
                 @endforeach
-            @endforeach
+            @else
+                {{-- also not dissapear automatically --}}
+                <p class="text-center text-gold-dim">No messages yet.</p>
+            @endif
             {{-- hidden templates, Blade renders them once --}}
             <template id="tpl-sent">
                 <x-sent-bubble-message message="__BODY__" time="__TIME__" :isRead="false" />
