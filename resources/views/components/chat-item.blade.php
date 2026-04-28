@@ -13,5 +13,10 @@
             <span>Offline</span>
         @endif
     </td>
+    <td class="text-xs text-sage">
+        <span class="w-fit mx-auto">
+            [ {{ $unReadCount > 99 ? '99+' : $unReadCount }} ]
+        </span>
+    </td>
 </tr>
 {{-- </a> --}}

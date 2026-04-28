@@ -14,11 +14,15 @@
                     <th class="text-start w-[60%]">User Name</th>
                     <th class="text-start w-[20%]">User ID</th>
                     <th class="text-start w-[20%]">User Status</th>
+                    <th class="text-start w-[20%]">Unread</th>
                 </thead>
                 <tbody>
                     @foreach ($conversations_members as $conversation)
-                        @php $partner = $conversation->users->first() @endphp
-                        <x-chat-item :conversationKey="$conversation->conversation_key" :userName="$partner->user_name" :userId="$partner->user_key" :userStatus="$partner->isOnline()" />
+                        @php 
+                        $partner = $conversation->users->first();
+                        $unread_count = $conversation->messages()->unread()->count();
+                        @endphp
+                        <x-chat-item :conversationKey="$conversation->conversation_key" :userName="$partner->user_name" :userId="$partner->user_key" :userStatus="$partner->isOnline()" :unReadCount="$unread_count" />
                     @endforeach
                 </tbody>
             </table>
