@@ -1,18 +1,18 @@
 <div class="border-b-1 border-dust p-2 border-dashed w-full">
     <div class="flex items-center justify-between w-full gap-2">
         <div class="flex gap-3">
-            <a href="{{ route('home') }}"
+            <a href="{{ route('home') }}" style="font-family: VT323"
                 class="flex items-center text-dust hover:text-gold transition-colors font-mono text-sm ">
                 <x-terminal-icon /> cd ~ home
             </a>
             <span class="text-rim">|</span>
             @if (url()->previous() !== url()->current() && url()->previous() !== '')
-                <a href="{{ url()->previous() }}"
+                <a href="{{ url()->previous() }}" style="font-family: VT323"
                     class="flex items-center text-dust hover:text-gold transition-colors font-mono text-sm ">
                     <x-terminal-icon /> cd ..
                 </a>
             @else
-                <p class="flex items-center text-dust  font-mono text-sm cursor-pointer">
+                <p style="font-family: VT323" class="flex items-center text-dust  font-mono text-sm cursor-pointer">
                     <x-terminal-icon /> cd ..
                 </p>
             @endif

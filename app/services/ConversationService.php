@@ -66,6 +66,7 @@ class ConversationService
 
     public function markAsRead(Conversation $conversation)
     {
-        $conversation->messages()->unread()->update(['read_at' => now()]);
+       $set_read = $conversation->messages()->unread()->update(['read_at' => now()]);
+       return $set_read;
     }
 }

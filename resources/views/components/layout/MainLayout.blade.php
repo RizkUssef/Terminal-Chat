@@ -9,8 +9,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
-    <div class="relative flex flex-col justify-start items-center h-screen bg-black gap-10">
+<body >
+    <div style="font-family: VT323" class="relative font-pixelify flex flex-col justify-start items-center h-screen bg-black gap-10">
         @php
             $user = auth()->user();
         @endphp

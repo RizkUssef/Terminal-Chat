@@ -8,7 +8,7 @@
         <x-chat-id :userId="$conversation_partner->user_key" :userName="$conversation_partner->user_name" :userStatus="$conversation_partner->isOnline()" :lastSeenAt="$conversation_partner->last_seen_at" />
         <div id="messages-list" class="p-5 flex flex-col gap-2 h-[62vh] overflow-scroll">
             {{-- this is where the messages will be inserted and rendered --}}
-            @foreach ($messages->reverse() as $date => $group)
+            @foreach ($messages as $date => $group)
                 {{-- Date separator badge --}}
                 <div class="date-separator">
                     <span class="date-badge">
@@ -25,7 +25,7 @@
                         @endif
                     </span>
                 </div>
-                @foreach ($group as $message)
+                @foreach ($group->reverse() as $message)
                     @if ($message->sender_id == auth()->id())
                         @php
                             $time = $message->created_at['time'];

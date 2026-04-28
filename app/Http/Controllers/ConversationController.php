@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use App\Services\ConversationService;
 use App\Services\ConversationUsersService;
+use App\Events\MessageRead;
 
 class ConversationController extends Controller
 {
@@ -39,7 +40,14 @@ class ConversationController extends Controller
 
     public function showConversation(Conversation $conversation)
     {
-        $this->markAsRead($conversation);
+        $message_status = $this->markAsRead($conversation);
+        // Only broadcast if there were actually unread messages
+        // if ($message_status > 0) {
+        //     broadcast(new MessageRead(
+        //         conversationId: $conversation->id,
+        //         readerId: auth()->id(),
+        //     ))->toOthers();
+        // }
         [
             'conversation_partner' => $conversation_partner,
             'messages' => $messages,
@@ -49,6 +57,7 @@ class ConversationController extends Controller
 
     public function markAsRead(Conversation $conversation)
     {
-        $this->conversationService->markAsRead($conversation);
+        $message_status = $this->conversationService->markAsRead($conversation);
+        return $message_status;
     }
 }
