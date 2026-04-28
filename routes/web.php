@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/add-new-friend', [ConversationController::class, 'create'])->name("create-conv");
     Route::get('/user-conversations', [ConversationController::class, 'showUserConversations'])->name("user-convs");
     Route::get('/conversation/{conversation:conversation_key}', [ConversationController::class, 'showConversation'])->name("conv");
+    // Route::patch('conversations/{conversation:conversation_key}/read',[ConversationController::class, 'markAsRead'])->name("mark-as-read");
     // messages
     Route::post('/send-message/{conversation:conversation_key}', [MessageController::class, 'sendMessage'])->name("send-message");
 });

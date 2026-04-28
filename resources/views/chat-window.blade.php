@@ -18,7 +18,6 @@
 
                         @if ($day->isToday())
                             Today
-
                         @elseif ($day->isYesterday())
                             Yesterday
                         @else
@@ -30,13 +29,15 @@
                     @if ($message->sender_id == auth()->id())
                         @php
                             $time = $message->created_at['time'];
+                            $is_read = $message->read_at ? true : false;
                         @endphp
-                        <x-sent-bubble-message :message="$message->message" :time="$time" :isRead="$message->status" />
+                        <x-sent-bubble-message :message="$message->message" :time="$time" :isRead="$is_read" />
                     @else
                         @php
                             $time = $message->created_at['time'];
+                            $is_read = $message->read_at ? true : false;
                         @endphp
-                        <x-recv-bubble-message :message="$message->message" :time="$time" :isRead="$message->status" />
+                        <x-recv-bubble-message :message="$message->message" :time="$time" :isRead="$is_read" />
                     @endif
                 @endforeach
             @endforeach

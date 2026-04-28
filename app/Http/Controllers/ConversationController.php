@@ -39,10 +39,16 @@ class ConversationController extends Controller
 
     public function showConversation(Conversation $conversation)
     {
+        $this->markAsRead($conversation);
         [
             'conversation_partner' => $conversation_partner,
             'messages' => $messages,
         ] = $this->conversationService->getOneUserConversations($conversation);
         return view('chat-window', compact('conversation_partner', 'conversation', 'messages'));
+    }
+
+    public function markAsRead(Conversation $conversation)
+    {
+        $this->conversationService->markAsRead($conversation);
     }
 }

@@ -15,7 +15,7 @@
     </td>
     <td class="text-xs text-sage">
         <span class="w-fit mx-auto">
-            [ {{ $unReadCount > 99 ? '99+' : $unReadCount }} ]
+            {{ ($unReadCount > 99 ? '[ 99+ ]' : ($unReadCount == 0 ? "[ -- ]" : "[ $unReadCount ]")) }} 
         </span>
     </td>
 </tr>

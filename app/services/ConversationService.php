@@ -63,4 +63,9 @@ class ConversationService
         $conversation_partner = $conversation->users()->where('user_id', '!=', auth()->id())->first();
         return ['conversation_partner' => $conversation_partner, 'messages' => $messages];
     }
+
+    public function markAsRead(Conversation $conversation)
+    {
+        $conversation->messages()->unread()->update(['read_at' => now()]);
+    }
 }
