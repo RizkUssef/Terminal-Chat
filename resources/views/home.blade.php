@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="w-[80%] md:w-[40%] box-shadow p-6">
-        <h1 class="font-bold text-gold flex items-center gap-2 text-2xl"> <x-terminal-icon/>Welcome Again pop</h1>
+        <h1 class="font-bold text-gold flex items-center gap-2 text-2xl"> <x-terminal-icon/>Welcome Again {{ Auth::user()->user_name }}</h1>
         <div class="flex gap-3 justify-center">
             <x-link :url="route('user-convs')">Start Chat</x-link>
             <x-link :url="route('add-new-friend')" >Add New Friend</x-link>
