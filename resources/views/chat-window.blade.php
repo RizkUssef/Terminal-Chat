@@ -42,7 +42,7 @@
                         @endif
                     @endforeach
                 @endforeach
-            @else
+            @elseif ($messages->isEmpty())
                 {{-- also not dissapear automatically --}}
                 <p class="text-center text-gold-dim">No messages yet.</p>
             @endif
@@ -61,7 +61,7 @@
         <form id="message-form" class="">
             @csrf
             <div class="flex justify-between items-baseline px-5">
-                <x-message-input userName="pop" type="text" name="message" placeholder="Message ..." />
+                <x-message-input :userName="@auth()->user()->user_name" type="text" name="message" placeholder="Message ..." />
                 <x-message-send>Exec_</x-message-send>
             </div>
         </form>
