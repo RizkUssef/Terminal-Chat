@@ -17,13 +17,20 @@
                     <th class="text-start w-[20%]">Unread</th>
                 </thead>
                 <tbody>
-                    @foreach ($conversations_members as $conversation)
-                        @php 
-                        $partner = $conversation->users->first();
-                        $unread_count = $conversation->messages()->unread()->count();
-                        @endphp
-                        <x-chat-item :conversationKey="$conversation->conversation_key" :userName="$partner->user_name" :userId="$partner->user_key" :userStatus="$partner->isOnline()" :unReadCount="$unread_count" />
-                    @endforeach
+                    @if ($conversations_members->isEmpty())
+                        <tr>
+                            <td colspan="4" class="text-center">No conversations found.</td>
+                        </tr>
+                    @else
+                        @foreach ($conversations_members as $conversation)
+                            @php
+                                $partner = $conversation->users->first();
+                                $unread_count = $conversation->messages()->unread()->count();
+                            @endphp
+                            <x-chat-item :conversationKey="$conversation->conversation_key" :userName="$partner->user_name" :userId="$partner->user_key" :userStatus="$partner->isOnline()"
+                                :unReadCount="$unread_count" />
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>
