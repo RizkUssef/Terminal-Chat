@@ -9,12 +9,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body >
-    <div style="font-family: VT323" class="relative font-pixelify flex flex-col justify-start items-center h-screen bg-black gap-10">
+<body>
+    <div style="font-family: VT323"
+        class="relative font-pixelify flex flex-col justify-start items-center h-screen bg-black gap-10">
         @php
             $user = auth()->user();
         @endphp
-        <x-user-id :user_name="$user->user_name" :user_status="$user->isOnline()" :user_id="$user->user_key" :lastSeenAt="$user->last_seen_at"/>
+        <x-user-id :user_name="$user->user_name" :user_status="$user->isOnline()" :user_id="$user->user_key" :lastSeenAt="$user->last_seen_at" />
         @yield('content')
     </div>
     @yield('scripts')

@@ -42,7 +42,7 @@
             <a href="#">
                 <x-settings-icon />
             </a>
-            <a href="#">
+            <a href="{{ route('profile', ['user' => auth()->user()->user_key]) }}">
                 <x-profile-icon />
             </a>
             <form class="my-auto h-7" action="{{ route('logout') }}" method="post">

@@ -8,6 +8,7 @@ use App\Http\Controllers\ChatWindowController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ProfileController;
 
 Route::group(['middleware' => 'auth'], function () {
     Route::redirect('/', '/home');
@@ -24,4 +25,5 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::patch('conversations/{conversation:conversation_key}/read',[ConversationController::class, 'markAsRead'])->name("mark-as-read");
     // messages
     Route::post('/send-message/{conversation:conversation_key}', [MessageController::class, 'sendMessage'])->name("send-message");
+    Route::get('/profile/{user:user_key}', [ProfileController::class, 'profileView'])->name('profile');
 });
