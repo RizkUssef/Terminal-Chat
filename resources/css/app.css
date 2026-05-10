@@ -8,50 +8,57 @@
 @source '../**/*.js';
 
 @font-face {
-    font-family: 'Bytesized';
+    font-family: "Bytesized";
     /* src:url("{{ url('storage/fonts/Bytesized/Bytesized-Regular.ttf') }}") format('truetype'); */
-    src: url('../../storage/app/public/fonts/Rubik_Pixels/RubikPixels-Regular.ttf') format('truetype');
+    src: url("/storage/app/public/fonts/Rubik_Pixels/RubikPixels-Regular.ttf")
+        format("truetype");
     font-weight: 400;
     font-display: swap;
 }
 @font-face {
-    font-family: 'VT323';
+    font-family: "VT323";
     /* src:url("{{ url('storage/fonts/Bytesized/Bytesized-Regular.ttf') }}") format('truetype'); */
-    src: url('../../storage/app/public/fonts/VT323/VT323-Regular.ttf') format('truetype');
+    src: url("/storage/app/public/fonts/VT323/VT323-Regular.ttf")
+        format("truetype");
     font-weight: 400;
     font-display: swap;
 }
 @font-face {
-    font-family: 'Doto';
+    font-family: "Doto";
     /* src:url("{{ url('storage/fonts/Bytesized/Bytesized-Regular.ttf') }}") format('truetype'); */
-    src: url('../../storage/app/public/fonts/Doto/Doto-VariableFont_ROND\\,wght.ttf') format('truetype');
+    src: url("/storage/app/public/fonts/Doto/Doto-VariableFont_ROND\\,wght.ttf")
+        format("truetype");
     font-weight: 400;
     font-display: swap;
 }
 @font-face {
-    font-family: 'Pixelify';
+    font-family: "Pixelify";
     /* src:url("{{ url('storage/fonts/Bytesized/Bytesized-Regular.ttf') }}") format('truetype'); */
-    src: url('../../storage/app/public/fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf') format('truetype');
+    src: url("/storage/app/public/fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf")
+        format("truetype");
     font-weight: 400;
     font-display: swap;
 }
 @font-face {
-    font-family: 'Rubik Pixels';
+    font-family: "Rubik Pixels";
     /* src:url("{{ url('storage/fonts/Bytesized/Bytesized-Regular.ttf') }}") format('truetype'); */
-    src: url('../../storage/app/public/fonts/Rubik_Pixels//RubikPixels-Regular.ttf') format('truetype');
+    src: url("/storage/app/public/fonts/Rubik_Pixels//RubikPixels-Regular.ttf")
+        format("truetype");
     font-weight: 400;
     font-display: swap;
 }
 
 @theme {
-    --font-sans:
+    /* --font-sans:
         "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-        "Noto Color Emoji";
-    --font-bytesized: "Bytesized", ui-sans-serif, system-ui, sans-serif,;
-    --font-doto: "Doto", ui-sans-serif, system-ui, sans-serif,;
-    --font-pixelify: "Pixelify", ui-sans-serif, system-ui, sans-serif,;
-    --font-rubik: "Rubik Pixels", ui-sans-serif, system-ui, sans-serif,;
+        "Noto Color Emoji"; */
+    --font-bytesized: Bytesized, ui-sans-serif, system-ui, sans-serif;
+    --font-VT323: VT323, ui-sans-serif, system-ui, sans-serif;
+    --font-doto: Doto, ui-sans-serif, system-ui, sans-serif;
+    --font-pixelify: Pixelify, ui-sans-serif, system-ui, sans-serif;
+    --font-rubik: Rubik Pixels, ui-sans-serif, system-ui, sans-serif;
+
     --color-page: #000000;
     --color-card: #080808;
     --color-input: #111010;
@@ -89,6 +96,124 @@
     --color-recv-border: #1a1a1a;
     --color-timestamp: #3d3830;
     --color-chat-bg: #0a0a0a;
+    /* shadow */
+    --shadow-r: 212;
+    --shadow-g: 163;
+    --shadow-b: 115;
+}
+
+/* app.css — after your existing @theme block */
+
+/* ── Theme: Green Terminal ── */
+.theme-green {
+    --color-page: #000a00;
+    --color-card: #020c02;
+    --color-input: #051005;
+    --color-cream: #ccffcc;
+    --color-oat: #80cc80;
+    --color-cocoa: #4a7a4a;
+    --color-dust: #2a4a2a;
+    --color-rim: #1a3a1a;
+    --color-gold: #00ff41;
+    --shadow-r: 0;
+    --shadow-g: 255;
+    --shadow-b: 65;
+    --color-gold-dim: #007a1e;
+    --color-sent-bubble: #001a00;
+    --color-sent-text: #00ff41;
+    --color-sent-border: #004a00;
+    --color-recv-bubble: #0a0a0a;
+    --color-recv-text: #80cc80;
+    --color-recv-border: #1a2a1a;
+    --color-timestamp: #2a4a2a;
+    --color-chat-bg: #020802;
+    --color-online: #00ff41;
+    --color-online-dim: #002a00;
+    --color-online-border: #005a00;
+}
+
+/* ── Theme: Blue Neon ── */
+.theme-blue {
+    --color-page: #00010f;
+    --color-card: #020310;
+    --color-input: #040515;
+    --color-cream: #c8e8ff;
+    --color-oat: #7ab8e8;
+    --color-cocoa: #4a7aa0;
+    --color-dust: #2a4a60;
+    --color-rim: #1a2a40;
+    --color-gold: #00d4ff;
+    --shadow-r: 0;
+    --shadow-g: 212;
+    --shadow-b: 255;
+    --color-gold-dim: #005a80;
+    --color-sent-bubble: #000a1a;
+    --color-sent-text: #00d4ff;
+    --color-sent-border: #003a5a;
+    --color-recv-bubble: #080810;
+    --color-recv-text: #7ab8e8;
+    --color-recv-border: #1a1a2a;
+    --color-timestamp: #2a3a50;
+    --color-chat-bg: #010208;
+    --color-online: #00d4ff;
+    --color-online-dim: #001a30;
+    --color-online-border: #003a60;
+}
+
+/* ── Theme: Red Alert ── */
+.theme-red {
+    --color-page: #0f0000;
+    --color-card: #100202;
+    --color-input: #150303;
+    --color-cream: #ffd0d0;
+    --color-oat: #e08080;
+    --color-cocoa: #a05050;
+    --color-dust: #602a2a;
+    --color-rim: #401a1a;
+    --color-gold: #ff3355;
+    --shadow-r: 255;
+    --shadow-g: 51;
+    --shadow-b: 85;
+    --color-gold-dim: #800020;
+    --color-sent-bubble: #1a0005;
+    --color-sent-text: #ff3355;
+    --color-sent-border: #5a0015;
+    --color-recv-bubble: #100808;
+    --color-recv-text: #e08080;
+    --color-recv-border: #2a1010;
+    --color-timestamp: #502020;
+    --color-chat-bg: #080202;
+    --color-online: #ff3355;
+    --color-online-dim: #2a0010;
+    --color-online-border: #600020;
+}
+
+/* ── Theme: Ghost (white/grey) ── */
+.theme-ghost {
+    --color-page: #f5f5f5;
+    --color-card: #eeeeee;
+    --color-input: #e5e5e5;
+    --color-cream: #1a1a1a;
+    --color-oat: #444444;
+    --color-cocoa: #777777;
+    --color-dust: #aaaaaa;
+    --color-rim: #cccccc;
+    --color-gold: #555555;
+    --shadow-r: 170;
+    --shadow-g: 170;
+    --shadow-b: 170;
+    --color-gold-dim: #999999;
+    --color-sent-bubble: #1a1a1a;
+    --color-sent-text: #f5f5f5;
+    --color-sent-border: #333333;
+    --color-recv-bubble: #e0e0e0;
+    --color-recv-text: #222222;
+    --color-recv-border: #cccccc;
+    --color-timestamp: #aaaaaa;
+    --color-chat-bg: #f0f0f0;
+    --color-online: #22c55e;
+    --color-online-dim: #dcfce7;
+    --color-online-border: #86efac;
 }
 
 *::-webkit-scrollbar {
@@ -96,7 +221,17 @@
 }
 
 .box-shadow {
-    @apply shadow-[5px_5px_rgba(212,163,115,_0.4),_10px_10px_rgba(212,163,115,_0.3),_15px_15px_rgba(212,163,115,_0.2),_20px_20px_rgba(212,163,115,_0.1),_25px_25px_rgba(212,163,115,_0.05)];
+    /* @apply shadow-[5px_5px_rgba(212,163,115,_0.4),_10px_10px_rgba(212,163,115,_0.3),_15px_15px_rgba(212,163,115,_0.2),_20px_20px_rgba(212,163,115,_0.1),_25px_25px_rgba(212,163,115,_0.05)]; */
+    box-shadow:
+        5px 0px rgba(var(--shadow-r), var(--shadow-g), var(--shadow-b), 0.4),
+        10px 10px 0px
+            rgba(var(--shadow-r), var(--shadow-g), var(--shadow-b), 0.3),
+        15px 15px 0px
+            rgba(var(--shadow-r), var(--shadow-g), var(--shadow-b), 0.2),
+        20px 20px 0px
+            rgba(var(--shadow-r), var(--shadow-g), var(--shadow-b), 0.1),
+        25px 25px 0px
+            rgba(var(--shadow-r), var(--shadow-g), var(--shadow-b), 0.05);
 }
 
 @layer utilities {
@@ -122,7 +257,6 @@
     margin: 5px 0 10px 0;
 }
 
-
 .date-badge {
     font-size: 12px;
     color: var(--color-dust);
@@ -130,4 +264,19 @@
     padding: 3px 12px;
     white-space: nowrap;
     font-weight: 500;
+}
+.bytesized {
+    font-family: var(--font-bytesized);
+}
+.vt323 {
+    font-family: var(--font-VT323);
+}
+.doto {
+    font-family: var(--font-doto);
+}
+.pixelify {
+    font-family: var(--font-pixelify);
+}
+.rubik {
+    font-family: var(--font-rubik);
 }

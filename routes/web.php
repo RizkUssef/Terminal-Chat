@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingsController;
 
 Route::group(['middleware' => 'auth'], function () {
     Route::redirect('/', '/home');
@@ -26,4 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
     // messages
     Route::post('/send-message/{conversation:conversation_key}', [MessageController::class, 'sendMessage'])->name("send-message");
     Route::get('/profile/{user:user_key}', [ProfileController::class, 'profileView'])->name('profile');
+    Route::get('/settings/{user:user_key}', [SettingsController::class, 'settingsView'])->name('settings');
+    Route::post('/settings/{user:user_key}', [SettingsController::class, 'saveSettings'])->name('save-settings');
 });

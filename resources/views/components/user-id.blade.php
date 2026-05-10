@@ -39,7 +39,7 @@
                     <span>Offline</span>
                 @endif
             </p>
-            <a href="#">
+            <a href="{{ route('settings', ['user' => auth()->user()->user_key]) }}">
                 <x-settings-icon />
             </a>
             <a href="{{ route('profile', ['user' => auth()->user()->user_key]) }}">

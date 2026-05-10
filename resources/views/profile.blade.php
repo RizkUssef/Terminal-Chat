@@ -8,7 +8,7 @@
             <h1 class="font-bold text-gold flex items-center gap-2 text-2xl"> <x-terminal-icon />Profile</h1>
         </div>
         <div class="flex flex-col text-gold gap-1 justify-center w-full py-5">
-            <div class="flex items-center gap-50">
+            <div class="flex items-center gap-50 text-sm">
                 <div>
                     <div class="flex gap-2">
                         <h1>user name : </h1>

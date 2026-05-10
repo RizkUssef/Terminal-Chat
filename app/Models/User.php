@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 use App\Casts\DateTimeSplitCast;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['name', 'email', 'password', 'user_name', 'user_key', 'last_seen_at'])]
+#[Fillable(['name', 'email', 'password', 'user_name', 'user_key', 'last_seen_at', 'settings'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {

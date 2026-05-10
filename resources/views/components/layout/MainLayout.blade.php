@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html>
+@php
+    $s = session('chat_settings');
+    $settings = json_decode($s, true);
+@endphp
+<html class="theme-{{ $settings['theme'] ?? 'default' }} {{ $settings['font'] ?? 'default' }}">
 
 <head>
     <meta charset="UTF-8">
@@ -10,8 +14,8 @@
 </head>
 
 <body>
-    <div style="font-family: VT323"
-        class="relative font-pixelify flex flex-col justify-start items-center h-screen bg-black gap-10">
+    <div 
+        class="relative flex flex-col justify-start items-center h-screen max-h-screen min-h-screen bg-black gap-10">
         @php
             $user = auth()->user();
         @endphp
